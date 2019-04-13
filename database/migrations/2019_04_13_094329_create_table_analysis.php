@@ -28,8 +28,16 @@ class CreateTableAnalysis extends Migration
      */
     public function up()
     {
-        Schema::create('table_analysis', function (Blueprint $table) {
+        Schema::create(PACKAGE_NAME . '_analysis', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->string('name');
+            $table->text('description')->nullable();
+            $table->string('program');
+            $table->string('program_version');
+            $table->string('algorithm')->nullable();
+            $table->string('source_name')->nullable();
+            $table->string('source_uri')->nullable();
+            $table->timestamp('executed_at');
             $table->timestamps();
         });
     }
@@ -41,6 +49,6 @@ class CreateTableAnalysis extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('table_analysis');
+        Schema::dropIfExists(PACKAGE_NAME . '_analysis');
     }
 }

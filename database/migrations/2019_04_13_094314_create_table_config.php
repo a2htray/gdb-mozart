@@ -21,8 +21,11 @@ class CreateTableConfig extends Migration
      */
     public function up()
     {
-        Schema::create('table_config', function (Blueprint $table) {
+        Schema::create(PACKAGE_NAME . '_config', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->string('key');
+            $table->string('type');
+            $table->text('value')->nullable();
             $table->timestamps();
         });
     }
@@ -34,6 +37,6 @@ class CreateTableConfig extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('table_config');
+        Schema::dropIfExists(PACKAGE_NAME . '_config');
     }
 }

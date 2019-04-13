@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateTablePackage extends Migration
+class CreateTableRole extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,10 @@ class CreateTablePackage extends Migration
      */
     public function up()
     {
-        Schema::create(PACKAGE_NAME . '_package', function (Blueprint $table) {
+        Schema::create(PACKAGE_NAME . '_role', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('name');
-            $table->string('prefix');
+            $table->string('unique_name')->unique();
             $table->timestamps();
         });
     }
@@ -28,6 +28,6 @@ class CreateTablePackage extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists(PACKAGE_NAME . '_package');
+        Schema::dropIfExists(PACKAGE_NAME . '_role');
     }
 }

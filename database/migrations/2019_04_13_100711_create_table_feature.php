@@ -13,8 +13,16 @@ class CreateTableFeature extends Migration
      */
     public function up()
     {
-        Schema::create('table_feature', function (Blueprint $table) {
+        Schema::create(PACKAGE_NAME . '_feature', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->unsignedBigInteger('organism_id');
+            $table->string('name');
+            $table->string('unique_name');
+            $table->unsignedBigInteger('type');
+            $table->text('residues');
+            $table->unsignedBigInteger('sequence_len');
+            $table->string('md5checksum');
+            $table->unsignedSmallInteger('is_analysis')->default(1);
             $table->timestamps();
         });
     }
@@ -26,6 +34,6 @@ class CreateTableFeature extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('table_feature');
+        Schema::dropIfExists(PACKAGE_NAME . '_feature');
     }
 }

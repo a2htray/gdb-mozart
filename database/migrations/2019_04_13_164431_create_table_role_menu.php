@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateTableOrganismSpecie extends Migration
+class CreateTableRoleMenu extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,10 @@ class CreateTableOrganismSpecie extends Migration
      */
     public function up()
     {
-        Schema::create('table_organism_specie', function (Blueprint $table) {
+        Schema::create(PACKAGE_NAME . '_role_menu', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->bigInteger('role_id');
+            $table->bigInteger('menu_id');
             $table->timestamps();
         });
     }
@@ -26,6 +28,6 @@ class CreateTableOrganismSpecie extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('table_organism_specie');
+        Schema::dropIfExists(PACKAGE_NAME . '_role_menu');
     }
 }

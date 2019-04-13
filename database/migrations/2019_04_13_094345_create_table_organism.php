@@ -23,8 +23,14 @@ class CreateTableOrganism extends Migration
      */
     public function up()
     {
-        Schema::create('table_organism', function (Blueprint $table) {
+        Schema::create(PACKAGE_NAME . '_organism', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->string('abbreviation')->nullable();
+            $table->string('genus');
+            $table->unsignedBigInteger('specie_id');
+            $table->string('common_name');
+            $table->string('infraspecific_name')->nullable();
+            $table->string('image_uri')->nullable();
             $table->timestamps();
         });
     }
@@ -36,6 +42,6 @@ class CreateTableOrganism extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('table_organism');
+        Schema::dropIfExists(PACKAGE_NAME . '_organism');
     }
 }

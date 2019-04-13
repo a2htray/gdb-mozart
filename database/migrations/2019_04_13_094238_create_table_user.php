@@ -22,8 +22,13 @@ class CreateTableUser extends Migration
      */
     public function up()
     {
-        Schema::create('table_user', function (Blueprint $table) {
+        Schema::create(PACKAGE_NAME . '_user', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->string('name')->unique();
+            $table->string('email')->unique();
+            $table->timestamp('email_verified_at')->nullable();
+            $table->string('password');
+            $table->rememberToken();
             $table->timestamps();
         });
     }
@@ -35,6 +40,6 @@ class CreateTableUser extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('table_user');
+        Schema::dropIfExists(PACKAGE_NAME . '_user');
     }
 }

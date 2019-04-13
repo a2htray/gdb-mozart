@@ -23,8 +23,10 @@ class CreateTableSpecie extends Migration
      */
     public function up()
     {
-        Schema::create('table_specie', function (Blueprint $table) {
+        Schema::create(PACKAGE_NAME . '_specie', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->string('name');
+            $table->text('description');
             $table->timestamps();
         });
     }
@@ -36,6 +38,6 @@ class CreateTableSpecie extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('table_specie');
+        Schema::dropIfExists(PACKAGE_NAME . '_specie');
     }
 }

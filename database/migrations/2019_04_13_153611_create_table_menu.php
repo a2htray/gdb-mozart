@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateTablePackage extends Migration
+class CreateTableMenu extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,14 @@ class CreateTablePackage extends Migration
      */
     public function up()
     {
-        Schema::create(PACKAGE_NAME . '_package', function (Blueprint $table) {
+        Schema::create(PACKAGE_NAME . '_menu', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->unsignedBigInteger('package_id');
             $table->string('name');
-            $table->string('prefix');
+            $table->unsignedSmallInteger('region_type')->default(1);
+            $table->string('uri_pattern')->nullable();
+            $table->unsignedBigInteger('is_group')->default(0);
+            $table->unsignedBigInteger('parent_id')->nullable();
             $table->timestamps();
         });
     }
@@ -28,6 +32,6 @@ class CreateTablePackage extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists(PACKAGE_NAME . '_package');
+        Schema::dropIfExists(PACKAGE_NAME . '_menu');
     }
 }
