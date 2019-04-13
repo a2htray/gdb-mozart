@@ -1,0 +1,26 @@
+{
+  "name": "gdb-mozart-ui",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Frontend UI for gdb-mozart",
+  "main": "index.js",
+  "author": "a2htray",
+  "license": "MIT",
+  "scripts": {
+    "dev": "webpack --watch --config webpack.config.dev.js",
+    "prod": "webpack --config webpack.config.prod.js"
+  },
+  "dependencies": {
+    "vue": "^2.6.10",
+    "vuetify": "^1.5.11"
+  },
+  "devDependencies": {
+    "css-loader": "^2.1.1",
+    "style-loader": "^0.23.1",
+    "stylus": "^0.54.5",
+    "stylus-loader": "^3.0.2",
+    "webpack": "^4.30.0",
+    "webpack-cli": "^3.3.0",
+    "webpack-dev-server": "^3.3.1"
+  }
+}

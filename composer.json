@@ -1,0 +1,33 @@
+{
+    "name": "a2htray/gdb-mozart",
+    "description": "Gene database named Mozart",
+    "type": "Project",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "a2htray",
+            "email": "a2htray.yuen@gmail.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {
+        "php": ">=7.1.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "A2htray\\GDBMozart\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "A2htray\\GDBMozart\\Tests\\": "tests/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "A2htray\\GDBMozart\\GDBMozartServiceProvider"
+            ]
+        }
+    }
+}
