@@ -2,11 +2,14 @@
 
 namespace A2htray\GDBMozart;
 
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 
-class Config
+class Config extends Model
 {
     protected $table = 'mozart_config';
+    protected $fillable = ['key', 'type', 'value'];
     protected static $fetch = false;
     protected static $kvs = [];
     protected static $rawKvs = [];
@@ -16,9 +19,9 @@ class Config
      * @param bool $fetch
      * @return array
      */
-    public function all(bool $fetch=false)
+    public function getAll(bool $fetch=false)
     {
-        $this->rawAll($fetch);
+        $this->getRawAll($fetch);
         return self::$kvs;
     }
 
@@ -44,8 +47,6 @@ class Config
         }
 
         return self::$kvs[$key] ?? $default;
-
-
     }
 
     /**
@@ -76,7 +77,22 @@ class Config
                 break;
 
         }
-        // TODO write the insertion or update logic
+
+        DB::beginTransaction();
+        try {
+            Config::updateOrCreate([
+                'key' => $key,
+            ], [
+                'type' => $type,
+                'value' => $value
+            ]);
+            DB::commit();
+        } catch (\Exception $e) {
+            DB::rollBack();
+            Log::critical('gbd-mozart', [$e]);
+        }
+
+
 
     }
 
@@ -85,7 +101,7 @@ class Config
      * @param bool $fetch
      * @return array|\Illuminate\Support\Collection
      */
-    public function rawAll(bool $fetch=false)
+    public function getRawAll(bool $fetch=false)
     {
         if (!self::$fetch) {
             $fetch = true;

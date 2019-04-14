@@ -7,8 +7,8 @@ use Illuminate\Support\Facades\Facade;
 /**
  * Class MozartConfig
  *
- * @method static array all(bool $fetch)
- * @method static array rawAll(bool $fetch)
+ * @method static array getAll(bool $fetch)
+ * @method static array getRawAll(bool $fetch)
  * @method static mixed get(string $key, $default=null)
  * @method static void set(string $key, mixed $value)
  *
