@@ -11,6 +11,16 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Menu extends Model
 {
+    protected $fillable = [
+        'package_id',
+        'name',
+        'region_type',
+        'uri_pattern',
+        'is_group',
+        'parent_id',
+        'rank',
+    ];
+
     /**
      * Replace the origin url with options
      * 

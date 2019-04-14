@@ -1,7 +1,7 @@
 <?php
 namespace A2htray\GDBMozart\Facades;
 
-use App\Config;
+use A2htray\GDBMozart\Models\Config;
 use Illuminate\Support\Facades\Facade;
 
 /**

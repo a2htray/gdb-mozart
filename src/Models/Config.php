@@ -1,6 +1,6 @@
 <?php
 
-namespace A2htray\GDBMozart;
+namespace A2htray\GDBMozart\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;

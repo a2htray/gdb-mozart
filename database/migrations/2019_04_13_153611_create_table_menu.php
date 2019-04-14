@@ -21,6 +21,7 @@ class CreateTableMenu extends Migration
             $table->string('uri_pattern')->nullable();
             $table->unsignedBigInteger('is_group')->default(0);
             $table->unsignedBigInteger('parent_id')->nullable();
+            $table->unsignedInteger('rank')->default(0);
             $table->timestamps();
         });
     }
