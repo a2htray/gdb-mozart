@@ -35,9 +35,12 @@ class GDBMozartServiceProvider extends ServiceProvider
             __DIR__ . '/../resources/favicon.ico' => public_path('favicon.ico'),
             __DIR__ . '/../resources/logo.png' => public_path('images/logo.png'),
             __DIR__ . '/../resources/dist/js/gdb-mozart.app.js' => public_path('js/gdb-mozart.app.js'),
+            __DIR__ . '/../resources/default-avatar.jpg' => public_path('images/default-avatar.png')
         ], PACKAGE_NAME . '_public');
 
         $this->loadRoutesFrom(__DIR__ . '/../routes/routes.php');
         $this->loadViewsFrom(__DIR__ . '/../resources/views', PACKAGE_NAME);
+
+        require_once __DIR__ . '/utils.php';
     }
 }

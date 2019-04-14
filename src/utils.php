@@ -8,9 +8,4 @@ if (!function_exists('package')) {
     }
 }
 
-// route helper collection
-if (!function_exists('mozartRoute')) {
-    function mozartRoute() {
-        return Route::prefix('/u/{username}');
-    }
-}
+
