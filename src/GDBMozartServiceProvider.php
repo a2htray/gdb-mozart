@@ -2,6 +2,10 @@
 
 namespace A2htray\GDBMozart;
 
+use A2htray\GDBMozart\Logic\Auth\Guard\XTokenGuard;
+use A2htray\GDBMozart\Logic\Auth\UserProvider;
+use A2htray\GDBMozart\Models\User;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\ServiceProvider;
 
 define('PACKAGE_NAME', 'mozart');
@@ -59,7 +63,17 @@ class GDBMozartServiceProvider extends ServiceProvider
         // make the views available
         $this->loadViewsFrom(__DIR__ . '/../resources/views', PACKAGE_NAME);
 
-        // alias
+        // bind
+        $this->app->bind('A2htray\GDBMozart\Models\User', function () {
+            return new User();
+        });
 
+        Auth::provider('XToken', function ($app, array $config) {
+            return new UserProvider($app->make('A2htray\GDBMozart\Models\User'));
+        });
+
+        Auth::extend('XToken', function ($app, $name, array $config) {
+            return new XTokenGuard(Auth::createUserProvider($config['provider']), $app->make('request'));
+        });
     }
 }

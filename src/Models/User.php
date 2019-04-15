@@ -5,17 +5,18 @@ namespace A2htray\GDBMozart\Models;
 use A2htray\GDBMozart\Logic\Auth\CommonLogin;
 use A2htray\GDBMozart\Logic\Auth\EmailLogin;
 use A2htray\GDBMozart\Logic\Auth\LoginStrategy;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
-use Illuminate\Contracts\Auth\MustVerifyEmail;
-use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Str;
 
-class User extends Authenticatable
+class User extends Model implements AuthenticatableContract
 {
+    use Notifiable;
+
     const LOGIN_TYPE_COMMON = 1;
     const LOGIN_TYPE_EMAIL = 2;
-
-    use Notifiable;
 
     protected $table = 'mozart_user';
 
@@ -52,24 +53,32 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    public static function login(array $credentials)
+    {
+        $user = new User();
+        return $user->fetchUserByCredentials($credentials);
+    }
+
     public function fetchUserByCredentials(array $credentials)
     {
-        if (!isset($credentials['login_type'])) {
+        if (!isset($credentials['loginType'])) {
             // login type equal 1 means to login by username and password
-            $credentials['login_type'] = static::LOGIN_TYPE_COMMON;
+            $credentials['loginType'] = static::LOGIN_TYPE_COMMON;
         }
 
-        if (!in_array($credentials['login_type'], static::getLoginTypes())) {
+        if (!in_array($credentials['loginType'], static::getLoginTypes())) {
             throw new \Exception('Login type must in [' . implode(',', static::getLoginTypes()) .']');
         }
 
-        switch ($credentials['login_type']) {
+        switch ($credentials['loginType']) {
             case static::LOGIN_TYPE_COMMON:
+                Log::info('login by username', $credentials);
                 $this->loginStrategy = new CommonLogin(
                     $credentials['username'], $credentials['password']
                 );
                 break;
             case static::LOGIN_TYPE_EMAIL:
+                Log::info('login by email', $credentials);
                 $this->loginStrategy = new EmailLogin(
                     $credentials['email'], $credentials['password']
                 );
@@ -79,8 +88,78 @@ class User extends Authenticatable
         return $this->loginStrategy->login();
     }
 
+    public function generateToken() {
+        $this->token = md5(Str::random(6));
+    }
+
+    public function generateAPIToken()
+    {
+        $this->api_token = md5(Str::random(6));
+    }
+
     public static function getLoginTypes()
     {
         return [static::LOGIN_TYPE_COMMON, static::LOGIN_TYPE_EMAIL];
+    }
+
+    /**
+     * Get the name of the unique identifier for the user.
+     *
+     * @return string
+     */
+    public function getAuthIdentifierName()
+    {
+        return $this->primaryKey;
+    }
+
+    /**
+     * Get the unique identifier for the user.
+     *
+     * @return mixed
+     */
+    public function getAuthIdentifier()
+    {
+        return $this->{$this->getAuthIdentifierName()};
+    }
+
+    /**
+     * Get the password for the user.
+     *
+     * @return string
+     */
+    public function getAuthPassword()
+    {
+        return $this->password;
+    }
+
+    /**
+     * Get the token value for the "remember me" session.
+     *
+     * @return string
+     */
+    public function getRememberToken()
+    {
+        return $this->{$this->getRememberTokenName()};
+    }
+
+    /**
+     * Set the token value for the "remember me" session.
+     *
+     * @param  string $value
+     * @return void
+     */
+    public function setRememberToken($value)
+    {
+        $this->{$this->getRememberTokenName()} = $value;
+    }
+
+    /**
+     * Get the column name for the "remember me" token.
+     *
+     * @return string
+     */
+    public function getRememberTokenName()
+    {
+        return 'remember_token';
     }
 }

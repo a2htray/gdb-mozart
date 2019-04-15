@@ -24,7 +24,7 @@ class UserProvider implements AbstractUserProvider
      */
     public function retrieveById($identifier)
     {
-        // TODO: Implement retrieveById() method.
+        return User::where(['id' => $identifier])->first();
     }
 
     /**
@@ -36,7 +36,7 @@ class UserProvider implements AbstractUserProvider
      */
     public function retrieveByToken($identifier, $token)
     {
-        // TODO: Implement retrieveByToken() method.
+        return User::where(['id' => $identifier, 'remember_token' => $token])->first();
     }
 
     /**
@@ -48,7 +48,7 @@ class UserProvider implements AbstractUserProvider
      */
     public function updateRememberToken(Authenticatable $user, $token)
     {
-        // TODO: Implement updateRememberToken() method.
+        $user->setRememberToken($token);
     }
 
     /**
@@ -78,7 +78,7 @@ class UserProvider implements AbstractUserProvider
     public function validateCredentials(Authenticatable $user, array $credentials)
     {
         $identifyMatch = false;
-        
+
         if ($credentials['login_type'] == User::LOGIN_TYPE_COMMON) {
             $identifyMatch = $user->getAuthIdentifier() == $credentials['username'];
         } else if ($credentials['login_type'] == User::LOGIN_TYPE_COMMON) {

@@ -3,6 +3,7 @@
 namespace A2htray\GDBMozart\Logic\Auth;
 
 use A2htray\GDBMozart\Models\User;
+use Illuminate\Support\Facades\Log;
 
 class CommonLogin implements LoginStrategy
 {
@@ -18,7 +19,8 @@ class CommonLogin implements LoginStrategy
 
     public function login()
     {
-        $this->user = User::where(['email' => $this->username, 'password' => md5($this->password)])->first();
+        $this->user = User::where(['name' => $this->username, 'password' => md5($this->password)])->first();
+        Log::info('login by username', [md5($this->password)]);
         $this->afterLogin();
 
         return $this->user;
