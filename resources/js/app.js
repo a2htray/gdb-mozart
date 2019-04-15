@@ -4,6 +4,8 @@ import 'vuetify/src/stylus/main.styl'
 
 Vue.use(Vuetify)
 
+Vue.component('m-login-panel', require('./components/LoginPanel.vue').default)
+
 Vue.component('m-dashboard', require('./components/Dashboard.vue').default)
 Vue.component('m-logo', require('./components/widgets/Logo.vue').default)
 

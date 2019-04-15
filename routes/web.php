@@ -1,9 +1,5 @@
 <?php
 
-Route::get('/u/{username}/dashboard', function () {
-    return view(PACKAGE_NAME . '::dashboard');
-});
-
 // route helper collection
 if (!function_exists('mozartRoute')) {
     /**
@@ -21,6 +17,8 @@ if (!function_exists('uMozartRoute')) {
         return route($name, array_merge(['username' => 'a2htray'], $options));
     }
 }
+
+Route::get('/login', 'A2htray\GDBMozart\Controllers\UserController@login')->name('login');
 
 mozartRoute(function () {
     Route::get('/logout', function ($u) {

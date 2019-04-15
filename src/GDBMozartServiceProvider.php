@@ -36,17 +36,30 @@ class GDBMozartServiceProvider extends ServiceProvider
 
         // web assets
         $this->publishes([
-            __DIR__ . '/../resources/favicon.ico' => public_path('favicon.ico'),
-            __DIR__ . '/../resources/logo.png' => public_path('images/logo.png'),
-            __DIR__ . '/../resources/dist/js/gdb-mozart.app.js' => public_path('js/gdb-mozart.app.js'),
-            __DIR__ . '/../resources/default-avatar.jpg' => public_path('images/default-avatar.png')
+            __DIR__ . '/../resources/favicon.ico' =>
+                public_path('favicon.ico'),
+
+            __DIR__ . '/../resources/logo.png' =>
+                public_path('images/logo.png'),
+
+            __DIR__ . '/../resources/default-avatar.jpg' =>
+                public_path('images/default-avatar.png'),
+
+            __DIR__ . '/../resources/dist/js/gdb-mozart.app.js' =>
+                public_path('js/gdb-mozart.app.js'),
+
+            __DIR__ . '/../resources/css/google-fonts-material-icon.css' =>
+                public_path('css/google-fonts-material-icon.css'),
         ], PACKAGE_NAME . '_public');
 
         // routes
-        $this->loadRoutesFrom(__DIR__ . '/../routes/routes.php');
+        $this->loadRoutesFrom(__DIR__ . '/../routes/web.php');
+        $this->loadRoutesFrom(__DIR__ . '/../routes/api.php');
 
         // make the views available
         $this->loadViewsFrom(__DIR__ . '/../resources/views', PACKAGE_NAME);
+
+        // alias
 
     }
 }
