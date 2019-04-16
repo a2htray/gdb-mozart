@@ -2,6 +2,7 @@
 
 namespace A2htray\GDBMozart;
 
+use A2htray\GDBMozart\Commands\LoadOboCommand;
 use A2htray\GDBMozart\Logic\Auth\Guard\XTokenGuard;
 use A2htray\GDBMozart\Logic\Auth\UserProvider;
 use A2htray\GDBMozart\Models\User;
@@ -23,6 +24,9 @@ class GDBMozartServiceProvider extends ServiceProvider
     {
         if ($this->app->runningInConsole()) {
             $this->loadMigrationsFrom(__DIR__ . '/../database/migrations');
+            $this->commands([
+                LoadOboCommand::class,
+            ]);
         }
     }
 
