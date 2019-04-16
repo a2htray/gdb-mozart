@@ -1,6 +1,6 @@
 <template>
   <img
-    :src="md.src"
+    :src="uri"
     alt=""
   >
 </template>
@@ -8,7 +8,7 @@
 <script>
   export default {
     props: {
-      md: Object
+      uri: String,
     },
   }
 </script>

@@ -5,12 +5,15 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>{{ config('mozart.site.name') ?? env('APP_NAME') }} - @yield('title')</title>
 
-  @if (config('mozart.google_fonts', true))
+    @if (config('mozart.google.fonts.mode', 'remote') == 'remote')
         <link href='https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900|Material+Icons' rel="stylesheet">
-  @endif
+    @else
+        <link href='{{ URL::asset('css/google-fonts-material-icon.css') }}' rel="stylesheet">
+    @endif
 </head>
 
 <?php
+    $user = \Illuminate\Support\Facades\Auth::user();
     $mockProfileItems = [
         [
             'icon' => 'account_circle',
@@ -41,193 +44,117 @@
         array_push($mockNotificationItems, $mockNotificationItem);
     }
 
-    $mockMenuItems = [
+    $menus = [
         [
             'title' => 'Dashboard',
             'icon' => 'dashboard',
+            'href' => sprintf('/u/%s/dashboard?token=%s', $user->name, $user->token),
+        ],
+        [
+            'title' => 'Data Upload',
+            'icon' => 'cloud_upload',
+            'color' => 'green darken-2',
             'items' => [
                 [
-                    'title' => 'Dashboard',
-                    'icon' => 'dashboard',
-                    'href' => '/u/a2htray/dashboard',
+                    'title' => 'Sequence',
+                    'icon' => 'filter_1',
+                    'color' => 'blue darken-2',
+                    'href' => sprintf('/u/%s/dataUpload?dataType=fasta&token=%s', $user->name, $user->token),
                 ],
                 [
-                    'title' => 'Dashboard',
-                    'icon' => 'dashboard',
-                    'href' => '/u/a2htray/dashboard',
+                    'title' => 'Annotation',
+                    'icon' => 'filter_2',
+                    'color' => 'purple darken-2',
+                    'href' => sprintf('/u/%s/dataUpload?dataType=gff&token=%s', $user->name, $user->token),
                 ],
                 [
-                    'title' => 'Dashboard',
-                    'icon' => 'dashboard',
-                    'href' => '/u/a2htray/dashboard',
+                    'title' => 'Variation',
+                    'icon' => 'filter_3',
+                    'href' => sprintf('/u/%s/dataUpload?dataType=vcf&token=%s', $user->name, $user->token),
+                ],
+                [
+                    'title' => 'Ontology',
+                    'icon' => 'filter_4',
+                    'color' => 'teal darken-2',
+                    'href' => sprintf('/u/%s/dataUpload?dataType=obo&token=%s', $user->name, $user->token),
+//                    '/u/a2htray/dataUpload?type=obo',
                 ],
             ]
         ],
         [
-            'title' => 'Dashboard',
-            'icon' => 'dashboard',
-            'href' => '/u/a2htray/dashboard',
-        ],
-        [
-            'title' => 'Dashboard',
-            'icon' => 'dashboard',
-            'href' => '/u/a2htray/dashboard',
-        ],
-        [
-            'title' => 'Dashboard',
+            'title' => 'Resource',
             'icon' => 'dashboard',
             'items' => [
                 [
-                    'title' => 'Dashboard',
+                    'title' => 'Analysis',
                     'icon' => 'dashboard',
-                    'href' => '/u/a2htray/dashboard',
+                    'href' => sprintf('/u/%s/dashboard?token=%s', $user->name, $user->token),
                 ],
                 [
-                    'title' => 'Dashboard',
+                    'title' => 'Organism',
                     'icon' => 'dashboard',
-                    'href' => '/u/a2htray/dashboard',
+                    'href' => sprintf('/u/%s/dashboard?token=%s', $user->name, $user->token),
                 ],
                 [
-                    'title' => 'Dashboard',
+                    'title' => 'Feature',
                     'icon' => 'dashboard',
-                    'href' => '/u/a2htray/dashboard',
+                    'href' => sprintf('/u/%s/dashboard?token=%s', $user->name, $user->token),
+                ],
+                [
+                    'title' => 'Ontology',
+                    'icon' => 'dashboard',
+                    'href' => sprintf('/u/%s/dashboard?token=%s', $user->name, $user->token),
                 ],
             ]
         ],
         [
-            'title' => 'Dashboard',
-            'icon' => 'dashboard',
+            'title' => 'Graph',
+            'icon' => 'cloud_upload',
             'items' => [
                 [
-                    'title' => 'Dashboard',
-                    'icon' => 'dashboard',
-                    'href' => '/u/a2htray/dashboard',
-                ],
-                [
-                    'title' => 'Dashboard',
-                    'icon' => 'dashboard',
-                    'href' => '/u/a2htray/dashboard',
-                ],
-                [
-                    'title' => 'Dashboard',
-                    'icon' => 'dashboard',
-                    'href' => '/u/a2htray/dashboard',
+                    'title' => 'Sequence',
+                    'icon' => 'filter_1',
+                    'color' => 'blue darken-2',
+                    'href' => sprintf('/u/%s/dashboard?token=%s', $user->name, $user->token),
                 ],
             ]
         ],
         [
-            'title' => 'Dashboard',
-            'icon' => 'dashboard',
-            'href' => '/u/a2htray/dashboard',
-        ],
-        [
-            'title' => 'Dashboard',
-            'icon' => 'dashboard',
-            'href' => '/u/a2htray/dashboard',
-        ],
-        [
-            'title' => 'Dashboard',
+            'title' => 'Tool',
             'icon' => 'dashboard',
             'items' => [
                 [
-                    'title' => 'Dashboard',
+                    'title' => 'Blast',
                     'icon' => 'dashboard',
-                    'href' => '/u/a2htray/dashboard',
-                ],
-                [
-                    'title' => 'Dashboard',
-                    'icon' => 'dashboard',
-                    'href' => '/u/a2htray/dashboard',
-                ],
-                [
-                    'title' => 'Dashboard',
-                    'icon' => 'dashboard',
-                    'href' => '/u/a2htray/dashboard',
+                    'href' => sprintf('/u/%s/dashboard?token=%s', $user->name, $user->token),
                 ],
             ]
         ],
         [
-            'title' => 'Dashboard',
+            'title' => 'Mview',
+            'icon' => 'dashboard',
+            'href' => sprintf('/u/%s/dashboard?token=%s', $user->name, $user->token),
+        ],
+        [
+            'title' => 'File Browser',
+            'icon' => 'dashboard',
+            'href' => sprintf('/u/%s/dashboard?token=%s', $user->name, $user->token),
+        ],
+        [
+            'title' => 'Setting',
             'icon' => 'dashboard',
             'items' => [
                 [
-                    'title' => 'Dashboard',
+                    'title' => 'Site Status',
                     'icon' => 'dashboard',
-                    'href' => '/u/a2htray/dashboard',
+                    'href' => sprintf('/u/%s/dashboard?token=%s', $user->name, $user->token),
                 ],
                 [
-                    'title' => 'Dashboard',
+                    'title' => 'People',
                     'icon' => 'dashboard',
-                    'href' => '/u/a2htray/dashboard',
-                ],
-                [
-                    'title' => 'Dashboard',
-                    'icon' => 'dashboard',
-                    'href' => '/u/a2htray/dashboard',
+                    'href' => sprintf('/u/%s/dashboard?token=%s', $user->name, $user->token),
                 ],
             ]
-        ],
-        [
-            'title' => 'Dashboard',
-            'icon' => 'dashboard',
-            'href' => '/u/a2htray/dashboard',
-        ],
-        [
-            'title' => 'Dashboard',
-            'icon' => 'dashboard',
-            'href' => '/u/a2htray/dashboard',
-        ],
-        [
-            'title' => 'Dashboard',
-            'icon' => 'dashboard',
-            'items' => [
-                [
-                    'title' => 'Dashboard',
-                    'icon' => 'dashboard',
-                    'href' => '/u/a2htray/dashboard',
-                ],
-                [
-                    'title' => 'Dashboard',
-                    'icon' => 'dashboard',
-                    'href' => '/u/a2htray/dashboard',
-                ],
-                [
-                    'title' => 'Dashboard',
-                    'icon' => 'dashboard',
-                    'href' => '/u/a2htray/dashboard',
-                ],
-            ]
-        ],
-        [
-            'title' => 'Dashboard',
-            'icon' => 'dashboard',
-            'items' => [
-                [
-                    'title' => 'Dashboard',
-                    'icon' => 'dashboard',
-                    'href' => '/u/a2htray/dashboard',
-                ],
-                [
-                    'title' => 'Dashboard',
-                    'icon' => 'dashboard',
-                    'href' => '/u/a2htray/dashboard',
-                ],
-                [
-                    'title' => 'Dashboard',
-                    'icon' => 'dashboard',
-                    'href' => '/u/a2htray/dashboard',
-                ],
-            ]
-        ],
-        [
-            'title' => 'Dashboard',
-            'icon' => 'dashboard',
-            'href' => '/u/a2htray/dashboard',
-        ],
-        [
-            'title' => 'Dashboard',
-            'icon' => 'dashboard',
-            'href' => '/u/a2htray/dashboard',
         ],
     ];
 ?>
@@ -242,6 +169,19 @@
             :clipped-left="$vuetify.breakpoint.mdAndUp"
             fixed
         >
+            <v-toolbar-items>
+                <m-logo uri="{{ URL::asset('images/logo.png') }}"></m-logo>
+            </v-toolbar-items>
+
+            <v-toolbar-items>
+                <v-toolbar-title>Mozart</v-toolbar-title>
+            </v-toolbar-items>
+
+            <v-toolbar-items>
+                <v-toolbar-side-icon></v-toolbar-side-icon>
+            </v-toolbar-items>
+
+
             <v-spacer></v-spacer>
             <m-notification
                 total={{ $mockNotificationTotal }}
@@ -252,13 +192,12 @@
                       :items="{{ json_encode($mockProfileItems) }}">
             </m-avatar>
         </v-toolbar>
-        <m-sidebar :items="{{ json_encode($mockMenuItems) }}">
+        <m-sidebar :items="{{ json_encode($menus) }}">
         </m-sidebar>
         <v-content>
-            <v-container fluid fill-height>
-                <v-layout justify-center align-center>
+            <v-container v-bind:style="{padding: 0 + 'px'}" fluid grid-list-md>
+                <m-breadcrumbs :items="{{ json_encode($breadcrumbs) }}"></m-breadcrumbs>
                     @yield('content')
-                </v-layout>
             </v-container>
         </v-content>
     </v-app>

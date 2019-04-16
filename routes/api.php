@@ -25,7 +25,13 @@ if (!function_exists('uApiMozartRoute')) {
 
 apiMozartRoute($withUser=false)->namespace('A2htray\GDBMozart\Controllers\Api')
     ->group(function () {
-        Route::post('login', 'LoginApiController')->middleware('params:login')->name('api_login');
+
+        Route::post('login', 'LoginApiController')
+            ->middleware('params:login')->name('api_login');
+
+        Route::post('submitOboFile', 'SubmitOboFileApiController')
+            ->middleware(['params:submitOboFile', 'apiAuth'])->name('api_submitOboFile');
+
     });
 
 

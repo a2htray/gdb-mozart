@@ -3,15 +3,7 @@
 @section('title', 'Dashboard')
 
 @section('content')
-    <v-tooltip right>
-        <v-btn
-            icon
-            large
-            target="_blank"
-            slot="activator"
-        >
-            <v-icon large>code</v-icon>
-        </v-btn>
-        <span>Source</span>
-    </v-tooltip>
+    <v-layout justify-center align-center>
+        Dashboard
+    </v-layout>
 @endsection

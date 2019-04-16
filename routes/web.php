@@ -6,8 +6,8 @@ if (!function_exists('mozartRoute')) {
      * @param $closure
      * @return \Illuminate\Routing\Route
      */
-    function mozartRoute(Closure $closure) {
-        return Route::prefix('/u/{username}')->group($closure);
+    function mozartRoute() {
+        return Route::prefix('/u/{username}');
     }
 }
 
@@ -20,14 +20,16 @@ if (!function_exists('uMozartRoute')) {
 
 Route::get('/login', 'A2htray\GDBMozart\Controllers\UserController@login')->name('login');
 
-mozartRoute(function () {
-    Route::get('/logout', function ($u) {
-        echo 'logout';
-    })->name('logout');
+mozartRoute()->namespace('A2htray\GDBMozart\Controllers')->group(function () {
+    Route::get('/logout', 'UserController@logout')->name('logout');
+
     Route::get('/notification/{id}', function ($u, $id) {
         echo $id;
     })->name('notification');
     Route::get('/notifications', function ($u) {
         echo $u;
     })->name('notifications');
+
+    Route::get('/dashboard', 'DashboardController@show')->middleware('webAuth')->name('dashboard');
+    Route::get('/dataUpload', 'DataController@upload')->middleware('webAuth')->name('data_upload');
 });

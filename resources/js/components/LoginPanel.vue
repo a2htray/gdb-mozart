@@ -90,9 +90,21 @@
           } else {
             params.email = this.md.identify;
           }
-          axios.post('/api/login', params)
+          this.$NProgress.start()
+          axios.post('/api/login', params).then((res) => {
+            if (res.data.code === 200) {
+              const data = res.data.data
+              window.location.href = 'http://develop-package/u/' + data.name + '/dashboard?token=' + data.token
+            } else {
+              console.warn('Give you warning message bellow')
+              console.table(res.data)
+            }
+            this.$NProgress.done()
+          })
         }
       }
+    },
+    mounted () {
     }
   }
 </script>

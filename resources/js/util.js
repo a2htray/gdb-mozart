@@ -1,3 +1,4 @@
+// function
 export function validateUsername(username) {
   const pattern = /^[a-zA-Z0-9_-]{5,10}$/
   return pattern.test(username)

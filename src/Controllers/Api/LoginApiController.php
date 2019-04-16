@@ -4,8 +4,11 @@ namespace A2htray\GDBMozart\Controllers\API;
 
 use A2htray\GDBMozart\Models\User;
 use Illuminate\Contracts\Auth\Guard;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Facades\Log;
 
 class LoginAPIController
@@ -19,7 +22,6 @@ class LoginAPIController
      *
      * @param Request $request
      * @param Guard $guard
-     * @return array
      */
     public function __invoke(Request $request, Guard $guard)
     {
@@ -42,7 +44,7 @@ class LoginAPIController
         Log::info('check the guard working', [$guard->validate($request->post())]);
         Log::info('get the auth user, may be', [Auth::user()]);
 
-        return [
+        return \Illuminate\Support\Facades\Response::json([
             'code' => 200,
             'data' => [
                 'name' => $user->name,
@@ -50,6 +52,9 @@ class LoginAPIController
                 'token' => $user->token,
                 'apiToken' => $user->api_token,
             ],
-        ];
+        ])->withCookie(\cookie('token', $user->token))
+            ->withCookie(\cookie('apiToken', $user->api_token));
+
+
     }
 }

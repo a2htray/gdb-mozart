@@ -56,6 +56,17 @@ class GDBMozartServiceProvider extends ServiceProvider
                 public_path('css/google-fonts-material-icon.css'),
         ], PACKAGE_NAME . '_public');
 
+        $this->publishes([
+            __DIR__ . '/../files/obo/so.obo' =>
+                public_path('files/obo/so.obo'),
+            __DIR__ . '/../files/obo/go.obo' =>
+                public_path('files/obo/go.obo'),
+            __DIR__ . '/../files/obo/go.obo' =>
+                public_path('files/obo/ro.obo'),
+            __DIR__ . '/../files/obo/go.obo' =>
+                public_path('files/obo/taxrank.obo'),
+        ], PACKAGE_NAME . '_obo');
+
         // routes
         $this->loadRoutesFrom(__DIR__ . '/../routes/web.php');
         $this->loadRoutesFrom(__DIR__ . '/../routes/api.php');
