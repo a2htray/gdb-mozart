@@ -3,8 +3,10 @@
 namespace A2htray\GDBMozart\Controllers;
 
 
+use A2htray\GDBMozart\Models\OboFile;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class DataController extends Controller
 {
@@ -23,9 +25,14 @@ class DataController extends Controller
         $next = [
             'disabled' => true,
         ];
+        $records = [];
         switch ($dataType) {
             case 'obo':
                 $next['text'] = 'Ontology';
+                $records = DB::table('mozart_obo_file')
+                    ->orderBy('created_at', 'desc')
+                    ->get()->toArray();
+//                dd($records);
                 break;
             case 'fasta':
                 $next['text'] = 'Sequence';
@@ -41,6 +48,7 @@ class DataController extends Controller
 
         return view('mozart::data.' . $dataType, [
             'breadcrumbs' => $breadcrumbs,
+            'records' => $records,
         ]);
     }
 }

@@ -19,6 +19,7 @@ Vue.component('m-breadcrumbs', require('./components/widgets/Breadcrumbs.vue').d
 
 Vue.component('m-upload-fasta', require('./components/widgets/Setpper.vue').default)
 Vue.component('m-obo-panel', require('./components/OboPanel.vue').default)
+Vue.component('m-table', require('./components/widgets/Table.vue').default)
 
 
 

@@ -65,9 +65,9 @@ class GDBMozartServiceProvider extends ServiceProvider
                 public_path('files/obo/so.obo'),
             __DIR__ . '/../files/obo/go.obo' =>
                 public_path('files/obo/go.obo'),
-            __DIR__ . '/../files/obo/go.obo' =>
+            __DIR__ . '/../files/obo/ro.obo' =>
                 public_path('files/obo/ro.obo'),
-            __DIR__ . '/../files/obo/go.obo' =>
+            __DIR__ . '/../files/obo/taxrank.obo' =>
                 public_path('files/obo/taxrank.obo'),
         ], PACKAGE_NAME . '_obo');
 

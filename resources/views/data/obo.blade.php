@@ -7,7 +7,34 @@
     $md = [
         'items' => $items,
         'origin' => config(PACKAGE_NAME .'.obo.defaults'),
-    ]
+    ];
+
+    $headers = [
+        [
+            'text' => 'ID',
+            'value' => 'id',
+        ],
+        [
+            'text' => 'Vocabulary Name',
+            'value' => 'vocabulary_name',
+        ],
+        [
+            'text' => 'Remote Url',
+            'value' => 'remote_uri',
+        ],
+        [
+            'text' => 'Local Url',
+            'value' => 'local_uri',
+        ],
+        [
+            'text' => 'Created Time',
+            'value' => 'created_at',
+        ],
+        [
+            'text' => 'Completed',
+            'value' => 'is_completed',
+        ]
+    ];
 ?>
 
 @section('content')
@@ -29,6 +56,26 @@
                     <m-obo-panel :md="{{ json_encode($md) }}"></m-obo-panel>
                 </v-card-text>
             </v-card>
+            <v-card flat>
+                <v-card-text><h3>RECORDS</h3></v-card-text>
+                <v-data-table
+                    :headers="{{ json_encode($headers) }}"
+                    :items="{{ json_encode($records) }}"
+                    disable-initial-sort
+                    class="elevation-1"
+                >
+                    <template v-slot:items="props">
+                        <td>@{{ props.item.id }}</td>
+                        <td>@{{ props.item.vocabulary_name }}</td>
+                        <td>@{{ props.item.remote_uri }}</td>
+                        <td>@{{ props.item.local_uri }}</td>
+                        <td>@{{ props.item.created_at }}</td>
+                        <td>@{{ props.item.is_completed }}</td>
+                    </template>
+                </v-data-table>
+
+            </v-card>
+
         </v-flex>
     </v-layout>
 @endsection

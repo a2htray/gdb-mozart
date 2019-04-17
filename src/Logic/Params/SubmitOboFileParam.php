@@ -10,16 +10,9 @@ use Illuminate\Support\Facades\Validator;
 
 class SubmitOboFileParam extends Param implements ParamValidate
 {
-    private $errors;
-
     public function __construct(Request $request)
     {
         parent::__construct($request);
-    }
-
-    public function getErrors()
-    {
-        return $this->errors;
     }
 
     public function validate()

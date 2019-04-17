@@ -19,9 +19,10 @@ class SubmitOboFileApiController
      * @param Request $request
      * @param Guard $guard
      */
-    public function __invoke(Request $request, User $user)
+    public function __invoke(Request $request)
     {
-        $obofile = OboFile::create([
+        $user = Auth::user();
+        $oboFile = OboFile::create([
             'vocabulary_name' => $request->post('vocabularyName'),
             'remote_uri' => $request->post('remoteUrl', null),
             'local_uri' => $request->post('localUrl', null),
@@ -32,7 +33,7 @@ class SubmitOboFileApiController
         return \Illuminate\Support\Facades\Response::json([
             'code' => 200,
             'data' => [
-                'cmd' => sprintf('cd %s && php artisan mozart:load-obo %s %s', base_path(), $user->name, $obofile->local_uri),
+                'cmd' => sprintf('cd %s && php artisan mozart:load-obo %s %s', base_path(), $user->name, $oboFile->local_uri),
             ],
         ]);
     }

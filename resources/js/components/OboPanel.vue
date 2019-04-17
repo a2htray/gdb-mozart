@@ -49,7 +49,14 @@
       </v-flex>
       
     </v-layout>
-    
+    <v-layout wrap align-center v-if="showCommand">
+      <v-flex xs12 sm12>
+        <p>You need to execute the command below manually on the command line: </p>
+        <div class="green accent-1">
+          <p>{{ cmd }}</p>
+        </div>
+      </v-flex>
+    </v-layout>
   </v-container>
 </template>
 
@@ -59,9 +66,11 @@
     data: () => {
       return {
         showDetail: false,
+        showCommand: false,
         vocabularyName: '',
         remoteUrl: '',
         localFile: '',
+        cmd: '',
       }
     },
     props: {
@@ -69,6 +78,7 @@
     },
     methods: {
       selectVocabulary () {
+        this.showCommand = false
         this.showDetail = true
         this.localFile = this.md.origin[this.vocabularyName]
       },
@@ -77,15 +87,19 @@
         this.vocabularyName = ''
       },
       submit () {
+        let that = this;
         axios.post('/api/submitOboFile', {
           'vocabularyName': this.vocabularyName,
           'remoteUrl': this.remoteUrl,
           'localUrl': this.localFile,
         }).then((res) => {
           if (res.data.code !== 200) {
+            // TODO write a general message alert
             console.warn(res.data.message)
           } else {
-            alert(res.data.data.cmd)
+            that.cmd = res.data.data.cmd
+            that.showCommand = true
+            that.reset()
           }
         })
       }

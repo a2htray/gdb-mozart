@@ -12,7 +12,8 @@
     "minimum-stability": "dev",
     "require": {
         "php": ">=7.1.0",
-        "doctrine/dbal": "^2.9"
+        "doctrine/dbal": "^2.9",
+        "phpobo/phpobo": "dev-master"
     },
     "autoload": {
         "psr-4": {
