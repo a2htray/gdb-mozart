@@ -31,7 +31,7 @@
           {
             icon: 'insert_drive_file',
             name: 'second',
-            title: 'Choose the obo file',
+            title: 'Type the path of fasta file',
             subtitle: 'maybe you need to know the path of file',
             component: StepTwo,
             completed: false

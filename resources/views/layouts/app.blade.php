@@ -178,9 +178,8 @@
             </v-toolbar-items>
 
             <v-toolbar-items>
-                <v-toolbar-side-icon></v-toolbar-side-icon>
+                <m-tool-side-button></m-tool-side-button>
             </v-toolbar-items>
-
 
             <v-spacer></v-spacer>
             <m-notification

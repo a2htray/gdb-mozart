@@ -10,7 +10,6 @@ use Illuminate\Support\Facades\Validator;
 
 class LoginParam extends Param implements ParamValidate
 {
-    private $errors;
 
     public function __construct(Request $request)
     {

@@ -1,84 +1,61 @@
 <template>
-  <div style="padding: 2rem 3rem; text-align: left;">
-    <div class="field">
-      <label class="label">Username</label>
-      <div class="control">
-        <input :class="['input', ($v.form.username.$error) ? 'is-danger' : '']" type="text" placeholder="Text input"
-               v-model="form.username">
-      </div>
-      <p v-if="$v.form.username.$error" class="help is-danger">This username is invalid</p>
-    </div>
-    <div class="field">
-      <label class="label">Email</label>
-      <div class="control">
-        <input :class="['input', ($v.form.demoEmail.$error) ? 'is-danger' : '']"  type="text" placeholder="Email input" v-model="form.demoEmail">
-      </div>
-      <p v-if="$v.form.demoEmail.$error" class="help is-danger">This email is invalid</p>
-    </div>
-    <div class="field">
-      <label class="label">Message</label>
-      <div class="control">
-        <textarea :class="['textarea', ($v.form.message.$error) ? 'is-danger' : '']"  placeholder="Textarea" v-model="form.message"></textarea>
-      </div>
-    </div>
+  <div>
+    <v-container>
+      <v-layout>
+        <v-flex xs12 md6>
+          <v-select outline
+                    label="Choose an analysis"
+          ></v-select>
+        </v-flex>
+        <v-flex xs12 md6>
+          <!--<v-btn color="info"></v-btn>-->
+          <v-btn color="info" @click="add('AnalysisFrom')">
+            <v-icon>add</v-icon>
+            Add new analysis
+          </v-btn>
+        </v-flex>
+        <v-flex xs12 md6>
+          <v-select outline
+                    label="Choose an organism"
+          ></v-select>
+        </v-flex>
+        <v-flex xs12 md6>
+          <v-btn color="info" @click="add('OrganismFrom')">
+            <v-icon>add</v-icon>
+            Add new organism
+          </v-btn>
+        </v-flex>
+      </v-layout>
+    </v-container>
+    <v-dialog v-model="dialog" max-width="1000px">
+      
+      <m-analysis-form v-if="showAnalysis"></m-analysis-form>
+      <m-organism-form v-if="showOrganism"></m-organism-form>
+      
+    </v-dialog>
   </div>
 </template>
 
 <script>
-  import {validationMixin} from 'vuelidate'
-  import {required, email} from 'vuelidate/lib/validators'
   export default {
-    props: ['clickedNext', 'currentStep'],
-    mixins: [validationMixin],
-    data() {
-      return {
-        form: {
-          username: '',
-          demoEmail: '',
-          message: ''
-        }
+    data: () => ({
+      showAnalysis: false,
+      showOrganism: false,
+      dialog: false,
+      styleObject : {
+        backgroundColor: 'white',
       }
-    },
-    validations: {
-      form: {
-        username: {
-          required
-        },
-        demoEmail: {
-          required,
-          email
-        },
-        message: {
-          required
+    }),
+    methods: {
+      add(form) {
+        this.dialog = true
+        if (form === 'AnalysisFrom') {
+          this.showAnalysis = true
+          this.showOrganism = false
+        } else {
+          this.showOrganism = true
+          this.showAnalysis = false
         }
-      }
-    },
-    watch: {
-      $v: {
-        handler: function (val) {
-          if(!val.$invalid) {
-            this.$emit('can-continue', {value: true});
-          } else {
-            this.$emit('can-continue', {value: false});
-            setTimeout(()=> {
-              this.$emit('change-next', {nextBtnValue: false});
-            }, 3000)
-          }
-        },
-        deep: true
-      },
-      clickedNext(val) {
-        console.log(val);
-        if(val === true) {
-          this.$v.form.$touch();
-        }
-      }
-    },
-    mounted() {
-      if(!this.$v.$invalid) {
-        this.$emit('can-continue', {value: true});
-      } else {
-        this.$emit('can-continue', {value: false});
       }
     }
   }

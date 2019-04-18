@@ -1,7 +1,8 @@
 <template>
   <v-navigation-drawer
+    disable-resize-watcher
+    v-model="openOrClose"
     fixed
-    :model="true"
     :clipped="$vuetify.breakpoint.mdAndUp"
     app
   >
@@ -41,10 +42,16 @@
   export default {
     data: () => {
       return {
+        openOrClose: true,
       }
     },
     props: {
       items: Array,
+    },
+    mounted () {
+      this.$root.$on('sidebarOffset', () => {
+        this.openOrClose = !this.openOrClose
+      })
     }
   }
 </script>
