@@ -44,6 +44,9 @@
       dialog: false,
       styleObject : {
         backgroundColor: 'white',
+      },
+      md: {
+      
       }
     }),
     methods: {

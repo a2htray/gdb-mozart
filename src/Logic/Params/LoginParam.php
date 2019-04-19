@@ -48,8 +48,7 @@ class LoginParam extends Param implements ParamValidate
         ]);
 
         if ($validator->fails()) {
-            $errors = $validator->errors();
-            $this->errors = $errors->get($errors->keys()[0])[0];
+            $this->errors = $validator->errors();
             return false;
         }
         return true;

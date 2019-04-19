@@ -18,6 +18,7 @@ Vue.component('m-sidebar', require('./components/widgets/SideBar.vue').default)
 Vue.component('m-tool-side-button', require('./components/widgets/ToolSideButton.vue').default)
 Vue.component('m-breadcrumbs', require('./components/widgets/Breadcrumbs.vue').default)
 Vue.component('m-table', require('./components/widgets/Table.vue').default)
+Vue.component('m-alert', require('./components/widgets/Alert.vue').default)
 
 Vue.component('m-upload-fasta', require('./components/widgets/Setpper.vue').default)
 Vue.component('m-obo-panel', require('./components/OboPanel.vue').default)

@@ -197,6 +197,7 @@
             <v-container v-bind:style="{padding: 0 + 'px'}" fluid grid-list-md>
                 <m-breadcrumbs :items="{{ json_encode($breadcrumbs) }}"></m-breadcrumbs>
                     @yield('content')
+                <m-alert></m-alert>
             </v-container>
         </v-content>
     </v-app>

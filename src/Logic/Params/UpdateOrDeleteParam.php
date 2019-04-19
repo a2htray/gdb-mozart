@@ -15,7 +15,7 @@ class UpdateOrDeleteParam extends Param implements ParamValidate
             'id.required' => 'The resource does not exist',
         ]);
 
-        if ($validator->failed()) {
+        if ($validator->fails()) {
             $this->errors = $validator->errors();
             return false;
         }

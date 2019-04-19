@@ -2,9 +2,9 @@
 
 namespace A2htray\GDBMozart\Resources;
 
-use Illuminate\Http\Resources\Json\JsonResource;
+use Illuminate\Http\Resources\Json\ResourceCollection;
 
-class User extends JsonResource
+class User extends ResourceCollection
 {
     /**
      * Transform the resource into an array.
@@ -14,6 +14,8 @@ class User extends JsonResource
      */
     public function toArray($request)
     {
-        return parent::toArray($request);
+        return [
+            'data' => $this->collection,
+        ];
     }
 }

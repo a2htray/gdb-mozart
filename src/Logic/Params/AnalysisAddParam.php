@@ -3,16 +3,17 @@
 namespace A2htray\GDBMozart\Logic\Params;
 
 
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Validator;
 
-class AddAnalysisParam extends Param implements ParamValidate
+class AnalysisAddParam extends Param implements ParamValidate
 {
     public function validate()
     {
         $validator = Validator::make($this->request->post(), [
-            'name' => 'required',
-            'program' => 'required',
-            'programVersion' => 'required',
+            'name' => 'required|string|min:6',
+            'program' => 'required|string|min:6',
+            'programVersion' => 'required|min:3',
             'executedAt' => [
                 'required',
                 'date',
@@ -25,8 +26,10 @@ class AddAnalysisParam extends Param implements ParamValidate
             'executedAt.required' => 'The execute time is required',
             'executedAt.data' => 'The format of execute time is invalid'
         ]);
-
-        if ($validator->failed()) {
+//        dd($this->request->post());
+        Log::debug('AnalysisAddParam', $this->request->post());
+        if ($validator->fails()) {
+            Log::debug('AnalysisAddParam1', $this->request->post());
             $this->errors = $validator->errors();
             return false;
         }

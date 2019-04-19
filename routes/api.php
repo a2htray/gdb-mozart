@@ -32,9 +32,7 @@ apiMozartRoute($withUser=false)->namespace('A2htray\GDBMozart\Controllers\Api')
         Route::post('submitOboFile', 'SubmitOboFileApiController')
             ->middleware(['params:submitOboFile', 'apiAuth'])->name('api_submitOboFile');
 
+        Route::post('analysis', 'AnalysisAddApiController')
+            ->middleware(['params:analysisAdd', 'apiAuth'])->name('api_analysisAdd');
+
     });
-
-
-
-
-

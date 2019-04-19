@@ -2,8 +2,11 @@
 
 namespace A2htray\GDBMozart\Logic\Middleware;
 
+use A2htray\GDBMozart\Logic\Params\Param;
 use Closure;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Log;
 
 class ParamsRule
 {
@@ -17,14 +20,17 @@ class ParamsRule
     public function handle($request, Closure $next, $paramName)
     {
         $cls = 'A2htray\GDBMozart\Logic\Params\\' . ucfirst($paramName) . 'Param';
-        $params = new $cls($request);
-
-        if ($params->validate()) {
+        /**
+         * @var Param $param
+         */
+        $param = new $cls($request);
+        if ($param->validate()) {
+            Log::debug('ParamsRule', [__FILE__, __LINE__]);
             return $next($request);
         } else {
             return [
                 'code' => 10004,
-                'message' => $params->getErrors(),
+                'message' => Arr::collapse($param->getErrors()->toArray()),
             ];
         }
     }

@@ -94,7 +94,7 @@
           'localUrl': this.localFile,
         }).then((res) => {
           if (res.data.code !== 200) {
-            // TODO write a general message alert
+            this.$root.$emit('alert', 'warning', res.data.message)
             console.warn(res.data.message)
           } else {
             that.cmd = res.data.data.cmd

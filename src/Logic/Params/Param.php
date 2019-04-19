@@ -5,7 +5,7 @@ namespace A2htray\GDBMozart\Logic\Params;
 
 use Illuminate\Http\Request;
 
-class Param
+class Param implements ParamValidate
 {
     protected $errors;
     protected $request;
@@ -14,9 +14,14 @@ class Param
     {
         $this->request = $request;
     }
-    
+
     public function getErrors()
     {
         return $this->errors;
+    }
+
+    public function validate()
+    {
+        throw new \Exception('It must be implemented');
     }
 }
