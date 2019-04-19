@@ -3,15 +3,9 @@
 namespace A2htray\GDBMozart\Controllers\API;
 
 use A2htray\GDBMozart\Models\Analysis;
-use A2htray\GDBMozart\Models\OboFile;
-use A2htray\GDBMozart\Models\User;
+
 use Illuminate\Contracts\Auth\Guard;
-use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Cookie;
-use Illuminate\Support\Facades\Log;
 
 class AnalysisAddApiController
 {
@@ -22,8 +16,23 @@ class AnalysisAddApiController
      */
     public function __invoke(Request $request)
     {
-//        $analysis = Analysis::create($request->post());
-        return $request->post();
+        $keyMap = [
+            'programVersion' => 'program_version',
+            'executedAt' => 'executed_at',
+            'sourceURL' => 'source_uri',
+            'sourceName' => 'source_name',
+        ];
+
+        $data = $request->post();
+        foreach ($keyMap as $key => $realField) {
+            if (isset($data[$key])) {
+                $data[$realField] = $data[$key];
+                unset($data[$key]);
+            }
+        }
+
+        $analysis = Analysis::create($data);
+//        return $request->post();
         return [
             'code' => 200,
             'data' => $analysis,

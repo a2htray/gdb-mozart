@@ -107,8 +107,13 @@
   import axios from 'axios'
   import 'quill/dist/quill.core.css'
   import 'quill/dist/quill.snow.css'
+  
+  const MODE_ADD = 'add'
+  const MODE_UPDATE = 'update'
+  
   export default {
     data: () => ({
+      mode: MODE_ADD,
       editor: null,
       menu: false,
       styleObject : {
@@ -118,6 +123,7 @@
         name: '',
         program: '',
         programVersion: '',
+        sourceName: '',
         algorithm: '',
         sourceURL: '',
         executedAt: null,
@@ -138,6 +144,13 @@
         axios.post('/api/analysis', this.md).then((res) => {
           if (res.data.code !== 200) {
             that.$root.$emit('alert', 'error', res.data.message)
+          } else {
+            
+            if (that.mode === MODE_ADD) {
+              that.$emit('addSuccess', res.data.data)
+            } else {
+              that.$emit('updateSuccess', res.data.data)
+            }
           }
         })
       },

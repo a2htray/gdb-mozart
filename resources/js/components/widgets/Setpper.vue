@@ -1,6 +1,6 @@
 <template>
   <v-flex>
-          <horizontal-stepper :steps="demoSteps" @completed-step="completeStep"
+          <horizontal-stepper :steps="steps" @completed-step="completeStep"
                               @active-step="isStepActive" @stepper-finished="alert"
           >
           </horizontal-stepper>
@@ -9,8 +9,8 @@
 
 <script>
   import HorizontalStepper from 'vue-stepper';
-  import StepOne from '../ChooseAnalysisAndOrganism.vue';
-  import StepTwo from '../ChooseFastaFile.vue';
+  import ChooseAnalysisAndOrganism from '../ChooseAnalysisAndOrganism.vue';
+  import ChooseFastaFile from '../ChooseFastaFile.vue';
   
   export default {
     components: {
@@ -18,13 +18,13 @@
     },
     data(){
       return {
-        demoSteps: [
+        steps: [
           {
             icon: 'call_made',
             name: 'first',
             title: 'Choose Analysis and Organism',
             subtitle: 'maybe you need to create one',
-            component: StepOne,
+            component: ChooseAnalysisAndOrganism,
             completed: false
             
           },
@@ -33,7 +33,7 @@
             name: 'second',
             title: 'Type the path of fasta file',
             subtitle: 'maybe you need to know the path of file',
-            component: StepTwo,
+            component: ChooseFastaFile,
             completed: false
           }
         ]
@@ -42,7 +42,7 @@
     methods: {
       // Executed when @completed-step event is triggered
       completeStep(payload) {
-        this.demoSteps.forEach((step) => {
+        this.steps.forEach((step) => {
           if (step.name === payload.name) {
             step.completed = true;
           }
@@ -50,7 +50,7 @@
       },
       // Executed when @active-step event is triggered
       isStepActive(payload) {
-        this.demoSteps.forEach((step) => {
+        this.steps.forEach((step) => {
           if (step.name === payload.name) {
             if(step.completed === true) {
               step.completed = false;

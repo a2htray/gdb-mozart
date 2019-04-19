@@ -6,6 +6,7 @@
       :type="type"
       :icon="icon"
       v-for="message in messages"
+      key="index"
     >
       {{ message }}
     </v-alert>

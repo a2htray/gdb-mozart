@@ -4,17 +4,17 @@
       <h4>Add new organism</h4>
       <v-layout>
         <v-flex md6>
-          <v-text-field label="Genus"></v-text-field>
+          <v-text-field label="Genus" v-model="md.genus"></v-text-field>
         </v-flex>
       </v-layout>
       <v-layout>
         <v-flex md6>
-          <v-text-field label="Species "></v-text-field>
+          <v-text-field label="Species" v-model="md.specie"></v-text-field>
         </v-flex>
       </v-layout>
       <v-layout>
         <v-flex md6>
-          <v-text-field label="Infraspecific Name" required></v-text-field>
+          <v-text-field label="Infraspecific Name" required v-model="md.infraspecificName"></v-text-field>
         </v-flex>
         <v-flex md6>
           <p>The infraspecific name for this organism. When diplaying the full taxonomic name, this field is appended to the genus, species.</p>
@@ -22,12 +22,12 @@
       </v-layout>
       <v-layout>
         <v-flex md6>
-          <v-text-field label="Abbreviation"></v-text-field>
+          <v-text-field label="Abbreviation" v-model="md.abbreviation"></v-text-field>
         </v-flex>
       </v-layout>
       <v-layout>
         <v-flex md6>
-          <v-text-field label="Common Name" required></v-text-field>
+          <v-text-field label="Common Name" required v-model="md.commonName"></v-text-field>
         </v-flex>
       </v-layout>
       <v-layout>
@@ -37,7 +37,7 @@
       </v-layout>
       <v-layout>
         <v-flex><v-btn color="blue darken-1" flat @click="dialog = false">Close</v-btn>
-          <v-btn color="blue darken-1" flat @click="dialog = false">Save</v-btn></v-flex>
+          <v-btn color="blue darken-1" flat @click="save">Save</v-btn></v-flex>
       </v-layout>
     </v-form>
   </v-container>
@@ -49,27 +49,28 @@
   import 'quill/dist/quill.snow.css'
   export default {
     data: () => ({
-      date: null,
-      menu: false,
+      editor: null,
       styleObject : {
         backgroundColor: 'white',
+      },
+      md: {
+        genus: '',
+        specie: '',
+        infraspecificName: '',
+        abbreviation: '',
+        commonName: '',
       }
     }),
-    watch: {
-      menu (val) {
-        val && setTimeout(() => (this.$refs.picker.activePicker = 'YEAR'))
-      }
-    },
     methods: {
-      save (date) {
-        this.$refs.menu.save(date)
+      save () {
+        this.md.description = JSON.stringify(this.editor.getContents())
+        console.log(this.md)
       }
     },
     mounted () {
-      let editor = new Quill('#editor', {
+      this.editor = new Quill('#editor', {
         theme: 'snow'
       });
-      console.log(111)
     }
   }
 </script>
