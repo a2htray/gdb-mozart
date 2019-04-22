@@ -20,7 +20,7 @@ Vue.component('m-breadcrumbs', require('./components/widgets/Breadcrumbs.vue').d
 Vue.component('m-table', require('./components/widgets/Table.vue').default)
 Vue.component('m-alert', require('./components/widgets/Alert.vue').default)
 
-Vue.component('m-upload-fasta', require('./components/widgets/Setpper.vue').default)
+Vue.component('m-upload-fasta', require('./components/ChooseAnalysisAndOrganism.vue').default)
 Vue.component('m-obo-panel', require('./components/OboPanel.vue').default)
 
 Vue.component('m-analysis-form', require('./components/form/AnalysisForm.vue').default)

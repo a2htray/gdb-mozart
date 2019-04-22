@@ -1,6 +1,7 @@
 'use strict';
 const path = require('path');
 const webpack = require('webpack');
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
 const { VueLoaderPlugin } = require('vue-loader');
 
 module.exports = {
@@ -8,6 +9,23 @@ module.exports = {
     entry: [
         './resources/js/app.js'
     ],
+    optimization: {
+      minimizer: [
+        new UglifyJsPlugin({
+          uglifyOptions: {
+            warnings: false,
+            parse: {},
+            compress: {},
+            mangle: true, // Note `mangle.properties` is `false` by default.
+            output: null,
+            toplevel: false,
+            nameCache: null,
+            ie8: false,
+            keep_fnames: false,
+          },
+        }),
+      ],
+    },
     output: {
         path: path.resolve(__dirname, './../../../public/js'),
         filename: 'gdb-mozart.app.js'

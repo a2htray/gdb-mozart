@@ -34,6 +34,8 @@ apiMozartRoute($withUser=false)->namespace('A2htray\GDBMozart\Controllers\Api')
 
         Route::post('analysis', 'AnalysisAddApiController')
             ->middleware(['params:analysisAdd', 'apiAuth'])->name('api_analysisAdd');
+        Route::post('organism', 'OrganismAddApiController')
+            ->middleware(['params:organismAdd', 'apiAuth'])->name('api_organismAdd');
 
         // resource
         Route::get('analysis', function () {
@@ -44,4 +46,7 @@ apiMozartRoute($withUser=false)->namespace('A2htray\GDBMozart\Controllers\Api')
             return new \A2htray\GDBMozart\Resources\Organism(\A2htray\GDBMozart\Models\Organism::all());
         })->middleware(['apiAuth'])->name('api_organismGet');
 
+        Route::get('features', function () {
+            return new \A2htray\GDBMozart\Resources\Feature(\A2htray\GDBMozart\Models\Feature::all());
+        })->middleware(['apiAuth'])->name('api_featureGet');
     });

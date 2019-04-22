@@ -18,7 +18,9 @@ class CreateTableCvTerm extends Migration
             $table->unsignedInteger('cv_id');
             $table->string('term_id');
             $table->string('name');
+            $table->text('definition')->nullable();
             $table->json('metadata');
+            $table->boolean('is_obsolete')->default(false);
             $table->json('relation')->nullable();
             $table->timestamps();
         });

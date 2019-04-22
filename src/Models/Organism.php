@@ -18,5 +18,6 @@ class Organism extends Model
         'common_name',
         'infraspecific_name',
         'image_uri',
+        'description',
     ];
 }
